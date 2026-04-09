@@ -36,10 +36,10 @@ Each feature is built by a coordinated team of agents. No agent works in isolati
 
 | Agent Role | Responsibility | Reads | Produces |
 |-----------|---------------|-------|----------|
-| **Lead Agent** | Feature coordination, contract authoring | PRD, Build Plan, CLAUDE.md | Contract file, task breakdown |
-| **Backend Agent** | Models, serializers, views, services, tests | Contract, CLAUDE.md, senior-security, database-optimizer | API endpoints, migrations, tests |
-| **Frontend Agent** | Next.js pages, components, hooks, services | Contract, CLAUDE.md, frontend-design | Pages, components, API calls, tests |
-| **Mobile Agent** | React Native screens, components, services | Contract, CLAUDE.md | Screens, components, API calls |
+| **Lead Agent** | Feature coordination, contract authoring | PRD, Build Plan, Engineering Standards | Contract file, task breakdown |
+| **Backend Agent** | Models, serializers, views, services, tests | Contract, Engineering Standards, senior-security, database-optimizer | API endpoints, migrations, tests |
+| **Frontend Agent** | Next.js pages, components, hooks, services | Contract, Engineering Standards, frontend-design | Pages, components, API calls, tests |
+| **Mobile Agent** | React Native screens, components, services | Contract, Engineering Standards | Screens, components, API calls |
 | **DB Agent** | Model review, query optimization, migration review | Contract, database-optimizer agent | Index recommendations, query reviews |
 | **Security Agent** | Threat model, input validation, auth review | Contract, senior-security skill | Security review report |
 | **QA Agent** | Test strategy, edge cases, integration tests | Contract, qa-testing skill | Test plans, test cases |

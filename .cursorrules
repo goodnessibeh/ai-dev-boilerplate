@@ -1,0 +1,39 @@
+# Cursor — Project Instructions
+
+> The canonical engineering standards are in `CLAUDE.md`. Read it fully before writing any code.
+
+## Quick Rules
+
+- **TDD**: Write tests first. Red → Green → Refactor. No feature is complete without tests.
+- **300-line limit**: No single file may exceed 300 lines. Split into directory-based modules.
+- **snake_case everywhere**: All field names, API responses, TypeScript types use snake_case.
+- **UPPER_SNAKE_CASE enums**: All enum values. Defined in `docs/contracts/_enums.contract.ts`.
+- **No inline styles**: Use CSS Modules (web) or StyleSheet companion files (mobile).
+- **No N+1 queries**: Always use select_related/prefetch_related.
+- **Security first**: Auth + authorization + validation + rate limiting on every endpoint.
+- **No hardcoded secrets**: All secrets from environment variables.
+- **No AI references in commits**: Never mention any AI tool name in commit messages.
+- **Mobile-first CSS**: Write mobile styles first, then add responsive breakpoints.
+- **Dark mode**: Every component must work in both light and dark themes.
+- **Contract-first**: Read `docs/contracts/{module}.contract.ts` before implementing any endpoint.
+
+## Files to Read Before Implementation
+
+1. `CLAUDE.md` — Full engineering standards
+2. `handoff/SESSION_MEMORY.md` — Project state and architecture decisions
+3. `docs/AGENT_COORDINATION.md` — Contracts, enums, naming, migrations
+4. `docs/contracts/_enums.contract.ts` — Enum values (single source of truth)
+5. `.ai/skills/` — Reference guides for the domain you're working in
+
+## Architecture
+
+- **Backend**: Directory-based modules (models/, serializers/, views/, services/, tests/ per app)
+- **Frontend**: Feature-based organization (features/{name}/components, hooks, services, types)
+- **Mobile**: Feature-based with StyleSheet companion files (*.styles.ts)
+- **Naming**: snake_case fields, PascalCase components, kebab-case URLs
+
+## Testing
+
+All tests must be dynamic — real HTTP requests (backend), real browser interactions (frontend).
+No import checks, no static assertions, no snapshot-only tests.
+Follow user journey patterns in every test file.

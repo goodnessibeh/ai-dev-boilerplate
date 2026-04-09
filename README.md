@@ -1,76 +1,86 @@
-# Claude Dev Boilerplate
+# AI Dev Boilerplate
 
-A comprehensive, reusable engineering standards kit for [Claude Code](https://claude.ai/claude-code). Drop it into any new project to instantly get production-grade development workflows — TDD, security-first development, multi-agent coordination, automated code formatting, secret detection, and 129+ skills out of the box.
+Production-grade engineering standards for AI-assisted development. Works with **any AI coding tool** — Claude Code, OpenAI Codex, Cursor, Windsurf, Cline, GitHub Copilot, Kimi, DeepSeek, and more.
 
-## Why This Exists
+Drop it into any project to get TDD, security-first development, multi-agent coordination, contract-first API design, and 129+ reference guides out of the box.
 
-Every new project starts the same way: setting up standards, configuring tools, writing the same rules about testing, security, and code quality. This boilerplate captures all of that into a portable package you copy once and never rewrite.
+## What It Does
+
+Every AI coding tool reads instruction files from your project. This boilerplate provides those files — pre-loaded with battle-tested engineering standards — so every AI session starts with the same quality bar, regardless of which tool you use.
 
 It enforces:
-- **Test-Driven Development (TDD)** — tests written before implementation, user journey patterns
-- **Security-Driven Development (SDD)** — threat modeling, OWASP Top 10, DAST scanning
-- **Contract-First API Design** — TypeScript contracts define the interface before any code is written
-- **No God Files** — 300-line hard limit per file, directory-based module structure
-- **Dynamic Testing Only** — no static import checks; real HTTP requests, real browser interactions
+- **Test-Driven Development** — tests first, user journey patterns, dynamic testing only
+- **Security-Driven Development** — threat modeling, OWASP Top 10, DAST scanning
+- **Contract-First APIs** — TypeScript contracts define interfaces before any code
+- **No God Files** — 300-line hard limit, directory-based module structure
 - **Consistent Naming** — `snake_case` fields, `UPPER_SNAKE_CASE` enums, `PascalCase` components
+- **No Inline Styles** — CSS Modules (web), StyleSheet companion files (mobile)
 
 ## Quick Start
 
-### 1. Copy into your project
-
 ```bash
-# From the boilerplate directory
-cp -r /path/to/claude-dev-boilerplate/{.claude,CLAUDE.md,handoff,docs} /path/to/your-project/
-
-# Or clone and copy
+# Clone the boilerplate
 git clone https://github.com/goodnessibeh/claude-dev-boilerplate.git
-cp -r claude-dev-boilerplate/{.claude,CLAUDE.md,handoff,docs} /path/to/your-project/
+
+# Option A: Run the setup script
+cd claude-dev-boilerplate
+./setup.sh /path/to/your-project
+
+# Option B: Copy manually
+cp -r claude-dev-boilerplate/{.claude,.ai,CLAUDE.md,AGENTS.md,.cursorrules,.windsurfrules,.clinerules,.kimi,.deepseek,.github,handoff,docs} /path/to/your-project/
 ```
 
-### 2. Customize for your project
+Then open `CLAUDE.md` and replace the `[Project Name]`, `[Your Name]`, and other placeholders with your project details.
 
-Open `CLAUDE.md` and follow the **Boilerplate Adaptation Instructions** section at the top. Replace placeholders:
+## Supported AI Tools
 
-- `[Project Name]` → your project name
-- `[Your Name]` / `[your@email.com]` → your git identity
-- Update UI kit paths or remove if not applicable
-- Add project-specific enum values to `docs/contracts/_enums.contract.ts`
+| Tool | Instruction File | Auto-Read |
+|------|-----------------|-----------|
+| **Claude Code** | `CLAUDE.md` + `.claude/` (skills, commands, agents, hooks) | Yes |
+| **OpenAI Codex** | `AGENTS.md` | Yes |
+| **Cursor** | `.cursorrules` | Yes |
+| **Windsurf** | `.windsurfrules` | Yes |
+| **Cline** | `.clinerules` | Yes |
+| **GitHub Copilot** | `.github/copilot-instructions.md` | Yes |
+| **Kimi** | `.kimi` (point it to `CLAUDE.md` for full standards) | Manual |
+| **DeepSeek** | `.deepseek` (point it to `CLAUDE.md` for full standards) | Manual |
+| **Any other tool** | Point it to read `CLAUDE.md` | Manual |
 
-### 3. Start building
-
-Claude Code will automatically read `CLAUDE.md` and follow all engineering standards. Every session starts with the same quality bar.
+**How it works:**
+- `CLAUDE.md` is the **single source of truth** — all engineering standards live here
+- Each provider file (`.cursorrules`, `AGENTS.md`, etc.) contains a quick-reference summary and points to `CLAUDE.md` for the full rules
+- `.ai/` is a symlink to `.claude/` so reference guide paths work regardless of which tool you use
 
 ## What's Included
 
 ### Engineering Standards (`CLAUDE.md`)
 
-The central document governing all code. Covers:
-
 | Area | What It Enforces |
 |------|-----------------|
-| **TDD** | Write tests first. Red → Green → Refactor. Every endpoint/component tested. |
+| **TDD** | Write tests first. Red, Green, Refactor. Every endpoint/component tested. |
 | **SDD** | Threat model before implementation. OWASP Top 10. DAST scans. |
 | **Architecture** | 300-line file limit. Directory-based modules. No monolithic files. |
 | **Database** | N+1 prevention. Cursor pagination. Index optimization. Migration safety. |
 | **Security** | Auth + authz on every endpoint. Rate limiting. Audit logging. No hardcoded secrets. |
 | **Frontend** | CSS Modules (no inline styles). Mobile-first. Light + dark mode. WCAG 2.1 AA. |
 | **Mobile** | StyleSheet companion files. Component-based screens. Detox/Maestro e2e tests. |
-| **Naming** | `snake_case` fields, `UPPER_SNAKE_CASE` enums, `PascalCase` components everywhere. |
-| **Git** | No AI references in commits. Always `git add .` from root. `IF NOT EXISTS` in migrations. |
+| **Naming** | snake_case fields, UPPER_SNAKE_CASE enums, PascalCase components everywhere. |
+| **Git** | No AI tool names in commits. Always `git add .` from root. |
+| **Testing** | Dynamic tests only. Real HTTP requests, real browser interactions. User journey patterns. |
 
-### Skills (129 files across 6 categories)
+### Reference Guides (129 files)
 
 ```
-.claude/skills/
+.ai/skills/
 ├── 01-Software-Web-Development/    # Frontend, MCP, Cloudflare, Stripe, webapp testing
 ├── 02-Context-Engineering-AI/      # Context optimization, prompt engineering, multi-agent
 ├── 03-Security/                    # Security code review, vibesec
 ├── 04-QA-Testing/                  # QA testing strategies
 ├── 05-Document-Processing/         # PDF, DOCX processing
-├── 06-Meta-Process/                # Skill creation
+├── 06-Meta-Process/                # Meta-level process guides
 ├── senior-security/                # Threat modeling, pen testing, crypto implementation
 ├── senior-qa/                      # Test automation, coverage analysis, e2e scaffolding
-├── product-manager-toolkit/        # PRD templates, RICE prioritization, interview analysis
+├── product-manager-toolkit/        # PRD templates, RICE prioritization
 ├── frontend-design/                # Production-grade UI design
 ├── web-perf/                       # Core Web Vitals, performance analysis
 ├── webapp-testing/                 # Playwright-based web app testing
@@ -78,119 +88,103 @@ The central document governing all code. Covers:
 ├── mcp-builder/                    # MCP server development
 ├── test-driven-development/        # TDD workflow
 ├── verification-before-completion/ # Verify before claiming done
-└── ...                             # 20+ more individual skills
+└── ...                             # 20+ more
 ```
 
-### Commands (4 slash commands)
+### Command Guides (4)
 
 | Command | Description |
 |---------|------------|
-| `/ultra-think` | Multi-framework structured analysis with adversarial reasoning |
-| `/create-prd` | Generate Product Requirements Documents |
-| `/init-project` | Initialize new project with proper structure |
-| `/setup-development-environment` | Configure dev environment with tools and workflows |
+| `ultra-think` | Multi-framework structured analysis with adversarial reasoning |
+| `create-prd` | Generate Product Requirements Documents |
+| `init-project` | Initialize new project with proper structure |
+| `setup-development-environment` | Configure dev environment with tools and workflows |
 
-### Agents
+### Agent Guides
 
 | Agent | Description |
 |-------|------------|
-| `database-optimizer` | Query optimization, indexing strategies, performance tuning across PostgreSQL, MySQL, MongoDB |
+| `database-optimizer` | Query optimization, indexing, performance tuning (PostgreSQL, MySQL, MongoDB) |
 
-### Hooks (Auto-configured in `settings.local.json`)
+### Hooks (Claude Code)
+
+These auto-run hooks are configured in `.claude/settings.local.json` for Claude Code users:
 
 | Hook | Trigger | What It Does |
 |------|---------|-------------|
-| **Auto-format** | After every file edit | Runs Prettier (JS/TS/CSS/JSON), Black (Python), gofmt (Go), rustfmt (Rust) |
-| **Dependency audit** | After editing package.json/requirements.txt/Cargo.toml | Runs `npm audit`, `safety check`, or `cargo audit` |
-| **Secret detection** | After every file edit/write | Runs semgrep, bandit (Python), gitleaks, and regex pattern matching |
+| **Auto-format** | After every file edit | Prettier (JS/TS/CSS), Black (Python), gofmt (Go), rustfmt (Rust) |
+| **Dependency audit** | After editing package.json/requirements.txt | npm audit, safety check, cargo audit |
+| **Secret detection** | After every file edit | semgrep, bandit, gitleaks, regex pattern matching |
 
-### Agent Coordination Protocol (`docs/AGENT_COORDINATION.md`)
+### Multi-Agent Coordination (`docs/AGENT_COORDINATION.md`)
 
-A complete multi-agent coordination system for large projects:
-
-- **Team structure** — Lead, Backend, Frontend, Mobile, DB, Security, QA agents
-- **Contract system** — TypeScript contracts define APIs before implementation
-- **Enum convention** — single source of truth in `_enums.contract.ts`
-- **Migration protocol** — naming, ordering, conflict resolution
-- **Swarm protocol** — how agents hand off work to each other
-- **Integration validation** — checklists for backend ↔ frontend ↔ mobile sync
-- **File ownership** — which agent owns which files
+A complete protocol for multi-agent development:
+- Team structure (Lead, Backend, Frontend, Mobile, DB, Security, QA agents)
+- Contract system (TypeScript contracts define APIs before code)
+- Enum conventions (single source of truth)
+- Migration protocol (naming, ordering, conflict resolution)
+- Swarm protocol (how agents hand off work)
+- Integration validation checklists
 
 ### Session Handoff System (`handoff/`)
 
 | Template | Purpose |
 |----------|---------|
-| `HANDOFF_TEMPLATE.md` | End-of-session handoff for continuity between AI sessions |
-| `SESSION_MEMORY.md` | Persistent memory across all sessions — architecture decisions, module status, preferences |
+| `HANDOFF_TEMPLATE.md` | End-of-session handoff for continuity between sessions |
+| `SESSION_MEMORY.md` | Persistent memory — architecture decisions, module status |
 | `E2E_TESTING_GUIDE.md` | End-to-end testing patterns and strategies |
-
-### Plugin Marketplace
-
-337 plugin files from the official Claude Code plugin marketplace, including integrations for GitHub, Slack, Discord, Linear, Supabase, Firebase, Playwright, and more.
 
 ## Project Structure
 
 ```
-claude-dev-boilerplate/
-├── CLAUDE.md                          # Central engineering standards
-├── README.md                          # This file
-├── .claude/
-│   ├── .mcp.json                      # MCP server configuration
+your-project/
+├── CLAUDE.md                          # Full engineering standards (source of truth)
+├── AGENTS.md                          # Codex instruction file
+├── .cursorrules                       # Cursor instruction file
+├── .windsurfrules                     # Windsurf instruction file
+├── .clinerules                        # Cline instruction file
+├── .kimi                              # Kimi instruction file
+├── .deepseek                          # DeepSeek instruction file
+├── .github/
+│   └── copilot-instructions.md        # GitHub Copilot instruction file
+├── .claude/                           # Claude Code: skills, commands, agents, hooks
 │   ├── settings.local.json            # Permissions, hooks, env vars
-│   ├── scripts/
-│   │   └── context-monitor.py         # Context window status line
-│   ├── agents/
-│   │   └── database-optimizer.md      # DB optimization agent
-│   ├── commands/
-│   │   ├── ultra-think.md
-│   │   ├── create-prd.md
-│   │   ├── init-project.md
-│   │   └── setup-development-environment.md
-│   ├── skills/                        # 129 skill files (see above)
-│   └── plugins/                       # 337 plugin marketplace files
+│   ├── scripts/context-monitor.py     # Context window monitor
+│   ├── agents/database-optimizer.md
+│   ├── commands/                      # ultra-think, create-prd, init-project, setup-dev-env
+│   ├── skills/                        # 129 reference guide files
+│   └── plugins/                       # Plugin marketplace
+├── .ai -> .claude                     # Symlink (provider-agnostic path)
 ├── docs/
 │   ├── AGENT_COORDINATION.md          # Multi-agent coordination protocol
 │   └── contracts/
-│       └── _enums.contract.ts         # Master enum definitions (template)
-└── handoff/
-    ├── HANDOFF_TEMPLATE.md            # Session handoff template
-    ├── SESSION_MEMORY.md              # Persistent session memory template
-    └── E2E_TESTING_GUIDE.md           # E2E testing guide
+│       └── _enums.contract.ts         # Enum definitions template
+├── handoff/
+│   ├── HANDOFF_TEMPLATE.md
+│   ├── SESSION_MEMORY.md
+│   └── E2E_TESTING_GUIDE.md
+└── setup.sh                           # Setup script for new projects
 ```
 
 ## Tech Stack Assumptions
 
-This boilerplate is opinionated toward the following stack, but the patterns are adaptable:
+This boilerplate defaults to the following stack, but the patterns adapt to anything:
 
 | Layer | Default | Adaptable To |
 |-------|---------|-------------|
-| Backend | Django + DRF | FastAPI, Express, Rails, etc. |
+| Backend | Django + DRF | FastAPI, Express, Rails, Go, etc. |
 | Database | PostgreSQL | MySQL, MongoDB, etc. |
 | Frontend | Next.js + TypeScript + shadcn/ui + Tailwind | React, Vue, Svelte, etc. |
 | Mobile | React Native (Expo) | Flutter, SwiftUI, Kotlin |
 | State | Zustand | Redux, Jotai, MobX |
 | Testing | pytest + Playwright + Detox | Jest, Cypress, Maestro |
-| Payments | Stripe/Paystack | Any payment provider |
 
-To adapt for a different stack:
-1. Update the backend architecture section in `CLAUDE.md`
-2. Modify the frontend rules (CSS modules, shadcn specifics, etc.)
-3. Adjust the contract system for your API framework
-4. Keep the principles (TDD, SDD, 300-line limit, naming conventions)
+To adapt: update the relevant sections in `CLAUDE.md`. The principles (TDD, SDD, 300-line limit, naming conventions, contract-first) are universal.
 
 ## Self-Updating
 
-The `CLAUDE.md` file includes **Boilerplate Adaptation Instructions** that tell any AI model working on the project to continuously update the document as the project evolves. This means:
-
-- Placeholder values get replaced with real project data
-- New sections are added as features are built
-- Irrelevant sections are removed
-- The document stays current — never stale
+`CLAUDE.md` includes **Boilerplate Adaptation Instructions** that tell any AI model to continuously update the document as the project evolves — replacing placeholders, adding project-specific sections, removing irrelevant ones. The standards file stays current, never stale.
 
 ## License
 
-This boilerplate is free to use for any project. The skills, commands, and plugins retain their original licenses where applicable.
-
----
-
-Built with [Claude Code](https://claude.ai/claude-code)
+Free to use for any project. Individual skills and plugins retain their original licenses where applicable.

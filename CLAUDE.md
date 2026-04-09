@@ -39,29 +39,32 @@ All agents, subagents, and sessions MUST consult these documents before implemen
 | **Enum Contract** | `docs/contracts/_enums.contract.ts` | Before using ANY enum — single source of truth for all enum values |
 | **Feature Contracts** | `docs/contracts/{module}.contract.ts` | Before implementing ANY endpoint — defines exact request/response shapes |
 
-### Skills & Agents (consult before implementation)
+### Reference Guides (consult before implementation)
+
+> These reference documents live in `.ai/skills/` and `.ai/agents/`. Read them before writing code in the relevant area.
+> **Note:** If using Claude Code, these are also available at `.claude/skills/` and `.claude/agents/`.
 
 | Resource | Path | When to Consult |
 |----------|------|----------------|
-| Senior Security | `.claude/skills/senior-security/` | Auth, payments, file uploads, any user-facing endpoint |
-| Database Optimizer | `.claude/agents/database-optimizer.md` | Model design, queries, indexes, migrations |
-| Frontend Design | `.claude/skills/frontend-design/` | UI components, layouts, interactions |
-| Web Performance | `.claude/skills/web-perf/` | Page load, bundle size, rendering performance |
-| QA Testing | `.claude/skills/qa-testing/` | Test strategy, test writing, coverage |
-| TDD | `.claude/skills/test-driven-development/` | TDD workflow, test-first approach |
-| Security Code Review | `.claude/skills/security-code-review/` | Code review for vulnerabilities |
-| Context Engineering | `.claude/skills/context-engineering/` | AI agent prompt design, context optimization |
-| Product Manager Toolkit | `.claude/skills/product-manager-toolkit/` | PRD creation, feature prioritization |
-| All Software Skills | `.claude/skills/01-Software-Web-Development/` | Framework-specific guidance |
-| All AI Skills | `.claude/skills/02-Context-Engineering-AI/` | AI/ML implementation guidance |
-| All Security Skills | `.claude/skills/03-Security/` | Security patterns and reviews |
-| All QA Skills | `.claude/skills/04-QA-Testing/` | Testing strategies |
-| All Commands | `.claude/commands/` | `ultra-think`, `create-prd`, `init-project`, `setup-development-environment` |
+| Senior Security | `.ai/skills/senior-security/` | Auth, payments, file uploads, any user-facing endpoint |
+| Database Optimizer | `.ai/agents/database-optimizer.md` | Model design, queries, indexes, migrations |
+| Frontend Design | `.ai/skills/frontend-design/` | UI components, layouts, interactions |
+| Web Performance | `.ai/skills/web-perf/` | Page load, bundle size, rendering performance |
+| QA Testing | `.ai/skills/qa-testing/` | Test strategy, test writing, coverage |
+| TDD | `.ai/skills/test-driven-development/` | TDD workflow, test-first approach |
+| Security Code Review | `.ai/skills/security-code-review/` | Code review for vulnerabilities |
+| Context Engineering | `.ai/skills/context-engineering/` | AI agent prompt design, context optimization |
+| Product Manager Toolkit | `.ai/skills/product-manager-toolkit/` | PRD creation, feature prioritization |
+| All Software Skills | `.ai/skills/01-Software-Web-Development/` | Framework-specific guidance |
+| All AI Skills | `.ai/skills/02-Context-Engineering-AI/` | AI/ML implementation guidance |
+| All Security Skills | `.ai/skills/03-Security/` | Security patterns and reviews |
+| All QA Skills | `.ai/skills/04-QA-Testing/` | Testing strategies |
+| All Commands | `.ai/commands/` | `ultra-think`, `create-prd`, `init-project`, `setup-development-environment` |
 
 ### Agent Workflow
 
 ```
-1.  Read CLAUDE.md (this file) — understand standards
+1.  Read this engineering standards file — understand standards
 2.  Read handoff/SESSION_MEMORY.md — understand project state
 3.  Read latest handoff/SESSION_NNN_*.md — understand what comes next
 4.  Read docs/TECHNICAL_PRD.md — understand the feature being built
@@ -69,7 +72,7 @@ All agents, subagents, and sessions MUST consult these documents before implemen
 6.  Read docs/AGENT_COORDINATION.md — understand contracts, naming, enums
 7.  Read docs/contracts/_enums.contract.ts — enum values for the feature
 8.  Read docs/contracts/{module}.contract.ts — exact API contract for the feature
-9.  Consult relevant .claude/skills/ — before writing any code
+9.  Consult relevant .ai/skills/ guides — before writing any code
 10. Implement with TDD + SDD (contract-first, test-first, security-first)
 11. Validate against contract (integration checklist from AGENT_COORDINATION.md)
 12. Write handoff at session end
@@ -91,7 +94,7 @@ All agents, subagents, and sessions MUST consult these documents before implemen
 ### Git Commit Rules
 
 - **Author:** All commits attributed to `[Your Name] <your@email.com>`
-- **No AI references:** Never include "Claude", "Kimi", "AI-generated", "Co-Authored-By" or similar in commit messages
+- **No AI references:** Never include any AI tool name (Claude, Codex, Kimi, DeepSeek, Copilot, etc.), "AI-generated", "Co-Authored-By", or similar in commit messages
 - **Commit format:** Clear, descriptive messages explaining what was done
 - **No force push** to main without explicit approval
 - **Always `git add .` from project root** — never add individual files, always stage everything from root to catch all changes across backend/frontend/admin/mobile
@@ -208,7 +211,7 @@ test.describe("Resource Save Journey", () => {
 ### Security-Driven Development (SDD)
 1. **Threat model first** — before implementing any feature, identify attack surfaces
 2. **Validate all inputs** at system boundaries (API endpoints, form submissions, file uploads)
-3. **Consult the `senior-security` skill** (`/.claude/skills/senior-security/`) before implementing auth, payments, file handling, or any user-facing endpoint
+3. **Consult the `senior-security` reference guide** (`.ai/skills/senior-security/`) before implementing auth, payments, file handling, or any user-facing endpoint
 4. **Run the `security_auditor.py` script** on completed features
 5. Apply OWASP Top 10 protections by default
 6. Never trust client input. Never expose stack traces. Never log secrets.
@@ -342,7 +345,7 @@ frontend/
 ## Database Optimization Standards
 
 ### Mandatory for Every Model
-- **Consult the `database-optimizer` agent** (`/.claude/agents/database-optimizer.md`) when designing models, writing queries, or adding indexes
+- **Consult the `database-optimizer` reference guide** (`.ai/agents/database-optimizer.md`) when designing models, writing queries, or adding indexes
 - Add `db_index=True` on all foreign keys and frequently filtered fields
 - Add `Meta.indexes` for compound query patterns
 - Use `select_related()` and `prefetch_related()` — **N+1 queries are never acceptable**
@@ -673,34 +676,34 @@ describe("Feature Journey", () => {
 
 ### Before implementing ANY feature, endpoint, or functionality:
 
-1. **Read relevant skills** from `.claude/skills/` that relate to the work:
+1. **Read relevant reference guides** from `.ai/skills/` that relate to the work:
    - Building a new API? → Consult `senior-security`, `database-optimizer`
    - Working on frontend? → Consult `frontend-design`, `web-perf`
    - Writing tests? → Consult `qa-testing`, `test-driven-development`
    - Handling payments? → Consult `stripe-integration` (for patterns), `senior-security`
    - Building AI features? → Consult `context-engineering`, `context-fundamentals`
    - Security-sensitive code? → Consult `senior-security`, `vibesec-security`, `security-code-review`
-   - Database work? → Consult `database-optimizer` agent
+   - Database work? → Consult `database-optimizer` agent guide
 
-2. **Read relevant commands** from `.claude/commands/`:
+2. **Read relevant command guides** from `.ai/commands/`:
    - Starting a new feature? → Read `create-prd.md`
    - Analyzing architecture? → Read `ultra-think.md`
    - Setting up a new module? → Read `init-project.md`
 
 3. **Document which skills were consulted** in the session handoff
 
-### Available Skills (`.claude/skills/`):
-- `01-Software-Web-Development/` — 15 skills (frontend, MCP, Cloudflare, Stripe, etc.)
-- `02-Context-Engineering-AI/` — 18 skills (context optimization, prompt engineering, etc.)
+### Available Reference Guides (`.ai/skills/`):
+- `01-Software-Web-Development/` — 15 guides (frontend, MCP, Cloudflare, Stripe, etc.)
+- `02-Context-Engineering-AI/` — 18 guides (context optimization, prompt engineering, etc.)
 - `03-Security/` — security code review, vibesec
 - `04-QA-Testing/` — QA testing, test planning
 - `05-Document-Processing/` — PDF, DOCX processing
-- `06-Meta-Process/` — meta-level process skills
+- `06-Meta-Process/` — meta-level process guides
 - `senior-security/` — threat modeling, security auditing, pen testing
 - `product-manager-toolkit/` — PRD templates, RICE prioritization
-- `frontend-design/`, `web-perf/`, `webapp-testing/` — frontend skills
+- `frontend-design/`, `web-perf/`, `webapp-testing/` — frontend guides
 
-### Available Agents (`.claude/agents/`):
+### Available Agent Guides (`.ai/agents/`):
 - `database-optimizer` — query optimization, indexing, performance tuning
 
 ---
