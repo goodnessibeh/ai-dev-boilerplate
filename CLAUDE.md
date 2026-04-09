@@ -78,6 +78,57 @@ All agents, subagents, and sessions MUST consult these documents before implemen
 12. Write handoff at session end
 ```
 
+### Plan Mode Requirements
+
+**MANDATORY: Every new feature MUST go through plan mode.** When the user requests a new feature, the agent MUST automatically enter plan mode — even if the user does not explicitly ask for it. Do NOT start writing code until planning is complete.
+
+**Plan mode flow:**
+1. **Automatically enter plan mode** when a new feature is requested — no exceptions.
+2. **Ask open-ended clarifying questions** to fully understand the feature before writing any code. Examples:
+   - "What user roles interact with this feature?"
+   - "How should this behave on mobile vs desktop?"
+   - "Are there edge cases around [X] we should handle?"
+   - "What's the expected scale / data volume?"
+   - "Does this need to integrate with any existing modules?"
+   - "What does success look like for this feature?"
+   - "Are there any third-party services or APIs involved?"
+3. **Do not assume requirements** — if something is ambiguous, ask. It's better to ask 5 questions upfront than to rebuild after implementation.
+4. **Present a phased sprint plan** after questions are answered (see Phased Sprint Approach below).
+5. **Get explicit sign-off** on the plan before starting implementation.
+
+> **Bug fixes, small tweaks, and config changes** do not require plan mode — only new features and significant enhancements.
+
+### Phased Sprint Approach
+
+Every feature implementation MUST use a phased sprint approach. No feature ships as a single monolithic block.
+
+**Format:** `Sprint N — Phase M` (e.g., Sprint 1 — Phase 1, Sprint 1 — Phase 2, Sprint 2 — Phase 1)
+
+**Structure:**
+- **Phase 1:** Core models, migrations, basic API endpoints, unit tests
+- **Phase 2:** Business logic, services, validation, integration tests
+- **Phase 3:** Frontend UI, user flows, E2E tests
+- **Phase 4:** Polish, edge cases, performance optimization, security hardening
+
+Each phase MUST have a **todo list** with concrete, checkable tasks. Example:
+
+```
+### Sprint 1 — Phase 1: Core Models & API
+- [ ] Create `Notification` model with fields: user, type, message, read, created_at
+- [ ] Add migration with indexes on user + created_at
+- [ ] POST /api/v1/notifications/ endpoint
+- [ ] GET /api/v1/notifications/ with pagination
+- [ ] PATCH /api/v1/notifications/{id}/read/
+- [ ] Write pytest tests for all endpoints
+- [ ] Verify all tests pass
+```
+
+Each phase must be:
+- Self-contained and deployable on its own
+- Documented in `docs/BUILD_PLAN.md` with its todo list
+- All todos checked off before moving to the next phase
+- Reviewed against the plan before proceeding
+
 ### Naming Conventions (enforced everywhere)
 
 | Thing | Convention | Example |
@@ -99,6 +150,8 @@ All agents, subagents, and sessions MUST consult these documents before implemen
 - **No force push** to main without explicit approval
 - **Always `git add .` from project root** — never add individual files, always stage everything from root to catch all changes across backend/frontend/admin/mobile
 - **Use `IF NOT EXISTS`** for database column additions in migrations to avoid errors on re-run
+- **Ask about handoff on every commit:** After every `git commit`, ask the user if a session handoff should be written. Never skip this prompt.
+- **Session handoff on every push:** Every `git push` MUST be preceded by writing a session handoff (`handoff/SESSION_NNN_*.md`) and updating `handoff/SESSION_MEMORY.md`. No push without a handoff — this ensures continuity across sessions and agents.
 
 > **See `docs/AGENT_COORDINATION.md` for the complete contract system, enum master list, migration protocol, and integration validation checklist.**
 
