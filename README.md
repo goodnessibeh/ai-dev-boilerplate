@@ -20,14 +20,14 @@ It enforces:
 
 ```bash
 # Clone the boilerplate
-git clone https://github.com/goodnessibeh/claude-dev-boilerplate.git
+git clone https://github.com/goodnessibeh/ai-dev-boilerplate.git
 
 # Option A: Run the setup script
-cd claude-dev-boilerplate
+cd ai-dev-boilerplate
 ./setup.sh /path/to/your-project
 
 # Option B: Copy manually
-cp -r claude-dev-boilerplate/{.claude,.ai,CLAUDE.md,AGENTS.md,.cursorrules,.windsurfrules,.clinerules,.kimi,.deepseek,.github,handoff,docs} /path/to/your-project/
+cp -r ai-dev-boilerplate/{.claude,.ai,CLAUDE.md,AGENTS.md,.cursorrules,.windsurfrules,.clinerules,.kimi,.deepseek,.github,handoff,docs} /path/to/your-project/
 ```
 
 Then open `CLAUDE.md` and replace the `[Project Name]`, `[Your Name]`, and other placeholders with your project details.
